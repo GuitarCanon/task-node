@@ -5,7 +5,7 @@
         public $password;
         public $dbname;
         public $con = '';
-        public function __constructor($servername, $username, $password, $dbname) {
+        public function __construct($servername, $username, $password, $dbname) {
             $this->servername = $servername;
             $this->username = $username;
             $this->password = $password;
@@ -37,8 +37,8 @@
     }
 
     class realCon extends Conmysql {
-        public function __constructor($servername, $username, $password, $dbname) {
-            parent::__constructor($servername, $username, $password, $dbname);
+        public function __construct($servername, $username, $password, $dbname) {
+            parent::__construct($servername, $username, $password, $dbname);
         }
         public function updateRealData () {
             $sql = "UPDATE text SET num=num+1 WHERE id=1";
