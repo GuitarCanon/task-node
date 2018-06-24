@@ -12,6 +12,11 @@ class PraiseButton{
                 setTimeout(function(){
                     $('#animation').removeClass('num');
                 },1000);
+                axios.get('/index/update').then(function(res) {
+                    console.log(res);
+                }).catch(function(err) {
+                    console.log(err);
+                })
             }else{
                 this.element.css('-webkit-filter','grayscale(1)'); 
                 this.num=0; 
