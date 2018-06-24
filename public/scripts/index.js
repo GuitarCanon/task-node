@@ -12,6 +12,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var f = '';
+
 var PraiseButton = function () {
     function PraiseButton(num, element) {
         _classCallCheck(this, PraiseButton);
@@ -26,23 +28,28 @@ var PraiseButton = function () {
             var _this = this;
 
             this.element.click(function () {
-                if (_this.num < 10) {
-                    _this.element.css('-webkit-filter', 'grayscale(0)');
-                    $('#animation').addClass('num');
-                    _this.num = add(_this.num);
-                    setTimeout(function () {
-                        $('#animation').removeClass('num');
-                    }, 1000);
-                    axios.get('/index/update').then(function (res) {
-                        console.log(res);
-                    }).catch(function (err) {
-                        console.log(err);
-                    });
-                } else {
-                    _this.element.css('-webkit-filter', 'grayscale(1)');
-                    _this.num = 0;
+                if (f) {
+                    clearTimeout(f);
                 }
-                console.log(_this.num);
+                f = setTimeout(function () {
+                    if (_this.num < 10) {
+                        _this.element.css('-webkit-filter', 'grayscale(0)');
+                        $('#animation').addClass('num');
+                        _this.num = add(_this.num);
+                        setTimeout(function () {
+                            $('#animation').removeClass('num');
+                        }, 1000);
+                        axios.get('/index/update').then(function (res) {
+                            console.log(res);
+                        }).catch(function (err) {
+                            console.log(err);
+                        });
+                    } else {
+                        _this.element.css('-webkit-filter', 'grayscale(1)');
+                        _this.num = 0;
+                    }
+                    console.log(_this.num);
+                }, 800);
             });
         }
     }]);

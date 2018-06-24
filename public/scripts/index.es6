@@ -1,3 +1,4 @@
+let f = '';
 class PraiseButton{
     constructor(num,element){
         this.num=num;
@@ -5,23 +6,28 @@ class PraiseButton{
     }
     clickAction(){
         this.element.click(()=>{
-            if(this.num<10){
-                this.element.css('-webkit-filter','grayscale(0)');
-                $('#animation').addClass('num');
-                this.num=add(this.num);
-                setTimeout(function(){
-                    $('#animation').removeClass('num');
-                },1000);
-                axios.get('/index/update').then(function(res) {
-                    console.log(res);
-                }).catch(function(err) {
-                    console.log(err);
-                })
-            }else{
-                this.element.css('-webkit-filter','grayscale(1)'); 
-                this.num=0; 
+            if (f) {
+                clearTimeout(f);
             }
-            console.log(this.num);
+            f =  setTimeout(() => {
+                if(this.num<10){
+                    this.element.css('-webkit-filter','grayscale(0)');
+                    $('#animation').addClass('num');
+                    this.num=add(this.num);
+                    setTimeout(function(){
+                        $('#animation').removeClass('num');
+                    },1000);
+                    axios.get('/index/update').then(function(res) {
+                        console.log(res);
+                    }).catch(function(err) {
+                        console.log(err);
+                    })
+                }  else{
+                    this.element.css('-webkit-filter','grayscale(1)'); 
+                    this.num=0; 
+                }
+                console.log(this.num);
+            }, 800)
         })
     }
 }
